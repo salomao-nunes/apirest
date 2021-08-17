@@ -33,13 +33,38 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $product = new Product();
-        $product->name= $request->input('name');
-        $product->price= $request->input('price');
-        
-        $product->save();
 
-        return new ProductResource($product);
+        $rules=array(
+
+            'name'=>"required|min:2",
+            "price"=>"required"
+
+        );
+
+        $validator=Validator::Make($request->all(),$rules);
+
+        if($validator->fails()){
+            return $validator->errors();
+        }else{
+            
+            $product = new Product();
+            $product->name= $request->input('name');
+            $product->price= $request->input('price');
+        
+            $result=$product->save();
+
+            if($result){
+                return ["Result"=>"Data Saved"];
+
+            }else{
+                return ["Result"=>"Data Unsaved"];
+            }
+
+           // return new ProductResource($product);
+            
+        }
+
+        
     }
 
     /**
@@ -84,13 +109,11 @@ class ProductController extends Controller
         return Product::destroy($id);
     }
 
-
-    public function testData(Request $req){
-
-             
-        return ["x"=>"y"];
-            
-
-
+    public function validateData(Request $req){
+        
+      
     }
+
+   
+
 }
