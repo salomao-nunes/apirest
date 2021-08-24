@@ -11,7 +11,7 @@ class FileController extends Controller
     //
     public function upload(Request $req){
 
-       $result=$req->file('photo')->store('public/apiUploads/');
+       $result=$req->file('file')->store('public/apiUploads/');
        return ["result"=>$result];
 
     }

@@ -37,7 +37,10 @@ class ProductController extends Controller
         $rules=array(
 
             'name'=>"required|min:2",
-            "price"=>"required"
+            "price"=>"required",
+            'category'=>"required|min:2",
+            'description'=>"required|min:2",
+            'gallery'=>"required|min:2"
 
         );
 
@@ -50,6 +53,9 @@ class ProductController extends Controller
             $product = new Product();
             $product->name= $request->input('name');
             $product->price= $request->input('price');
+            $product->category= $request->input('category');
+            $product->description= $request->input('description');
+            $product->gallery= $request->input('gallery');
         
             $result=$product->save();
 
